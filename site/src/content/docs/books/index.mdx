@@ -1,0 +1,34 @@
+---
+title: The books
+description: Famous codebases, dug up and bound. The output of running /dig against well-known open-source repos.
+---
+
+Books are what you get when you run [`/dig`](/indiana-codes/install/) against an open-source repo and edit the output for narrative. Each one is a chapter-by-chapter walkthrough of how the codebase actually got to its current shape — the team transitions, the rewrites, the incidents, the infamous decisions that turned out fine in the end.
+
+<div class="book-shelf">
+  <a class="book-card" href="/indiana-codes/books/vllm/">
+    <div class="vol">Volume I · 8 chapters</div>
+    <div class="title">vLLM</div>
+    <div class="blurb">From Woosuk Kwon's solo PagedAttention prototype (codename CacheFlow) to the dominant open-source LLM inference engine. Block managers, V1 rewrite, distributed serving, vLLM IR.</div>
+    <div class="meta">≈ 16k commits · 3 years · feb 2023 → apr 2026</div>
+  </a>
+  <a class="book-card" href="/indiana-codes/books/nautilus_trader/">
+    <div class="vol">Volume II · 15 chapters</div>
+    <div class="title">NautilusTrader</div>
+    <div class="blurb">From a closed-source Cython FX prototype to a Rust-native, multi-asset, multi-venue trading engine. The two-step InstrumentId rewrite, the unified Cache + MessageBus, the multi-year Cython→Rust port, the high-precision break, and the path toward v2.0.</div>
+    <div class="meta">≈ 18.5k commits · 8 years · jun 2018 → apr 2026</div>
+  </a>
+</div>
+
+<div class="dingbat" aria-hidden="true"></div>
+
+## Want your repo dug up?
+
+Open an [issue](https://github.com/twitu/indiana-codes/issues) with the repo name and a one-liner on what makes its history interesting. Good candidates have:
+
+- 1000+ commits and 3+ years of history
+- Real PR discussions and meaningful commit messages
+- A story — team transitions, rewrites, controversies, incidents
+- An audience that would recognise the name on the cover
+
+Or — better — point `/dig` at it yourself and send a PR with the chapters. Instructions in the [README](https://github.com/twitu/indiana-codes#readme).

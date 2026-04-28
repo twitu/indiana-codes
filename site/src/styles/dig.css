@@ -1,0 +1,763 @@
+/* Excavate — editorial-technical theme for Starlight.
+ * Parchment palette, modern type, paper-card code blocks.
+ * Fonts: Fraunces (display), Source Serif 4 (body), JetBrains Mono (code),
+ *        Special Elite (handwritten accents — captions, stamps, buttons).
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,50..100&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=Special+Elite&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ---------------------------------------------------------------------------
+ * palette — chosen for AAA contrast on body text in both themes
+ * ------------------------------------------------------------------------ */
+
+:root {
+  --ink-dark:      #14110d;   /* near-black, warm */
+  --ink-mid:       #2e2620;   /* secondary text in light mode */
+  --ink-faded:     #4a3f30;   /* tertiary, but still ≥ 7:1 on parchment */
+  --paper:         #f6efe2;   /* parchment background */
+  --paper-edge:    #ebe1c8;   /* sidebar / cards in light mode */
+  --paper-deep:    #e0d4b3;   /* deeper edges */
+  --stamp-red:     #9d2f23;   /* sharper, more saturated for AA on parchment */
+  --stamp-red-low: rgba(157, 47, 35, 0.10);
+  --aged-gold:     #d4a838;   /* dark-mode accent — bumped for contrast */
+  --rust:          #7e3f23;
+  --moss:          #4a5a3a;
+
+  /* dark-mode palette (also used as vars elsewhere) */
+  --vellum-bg:     #1a1714;
+  --vellum-nav:    #131110;
+  --vellum-text:   #ede4cc;   /* warmer than #fff, still 14:1 contrast */
+}
+
+/* light theme */
+:root[data-theme='light'] {
+  --sl-color-bg: var(--paper);
+  --sl-color-bg-nav: var(--paper);
+  --sl-color-bg-sidebar: var(--paper-edge);
+  --sl-color-bg-inline-code: rgba(157, 47, 35, 0.10);
+  --sl-color-text: var(--ink-dark);
+  --sl-color-text-accent: var(--stamp-red);
+  --sl-color-text-invert: var(--paper);
+  --sl-color-accent: var(--stamp-red);
+  --sl-color-accent-low: var(--stamp-red-low);
+  --sl-color-accent-high: var(--stamp-red);
+  --sl-color-white: var(--ink-dark);
+  --sl-color-gray-1: #1f1a14;
+  --sl-color-gray-2: var(--ink-mid);
+  --sl-color-gray-3: var(--ink-faded);
+  --sl-color-gray-4: #6b5a44;
+  --sl-color-gray-5: #a8987a;
+  --sl-color-gray-6: var(--paper-deep);
+  --sl-color-gray-7: var(--paper-edge);
+  --sl-color-hairline: rgba(20, 17, 13, 0.22);
+  --sl-color-hairline-light: rgba(20, 17, 13, 0.12);
+}
+
+/* dark theme */
+:root[data-theme='dark'] {
+  --sl-color-bg: var(--vellum-bg);
+  --sl-color-bg-nav: var(--vellum-nav);
+  --sl-color-bg-sidebar: var(--vellum-nav);
+  --sl-color-bg-inline-code: rgba(212, 168, 56, 0.14);
+  --sl-color-text: var(--vellum-text);
+  --sl-color-text-accent: var(--aged-gold);
+  --sl-color-accent: var(--aged-gold);
+  --sl-color-accent-low: rgba(212, 168, 56, 0.16);
+  --sl-color-accent-high: #efc35c;
+  --sl-color-white: #f6eed8;
+  --sl-color-gray-1: #ddd2b6;
+  --sl-color-gray-2: #c2b58f;
+  --sl-color-gray-3: #9a8a68;
+  --sl-color-gray-4: #6b5a44;
+  --sl-color-gray-5: #4a3f30;
+  --sl-color-gray-6: #2a241d;
+  --sl-color-gray-7: #1c1815;
+  --sl-color-hairline: rgba(237, 228, 204, 0.18);
+  --sl-color-hairline-light: rgba(237, 228, 204, 0.10);
+}
+
+/* ---------------------------------------------------------------------------
+ * typography — bigger, readable, characterful
+ * ------------------------------------------------------------------------ */
+
+:root {
+  --sl-font: 'Source Serif 4', Charter, 'Iowan Old Style', Georgia, serif;
+  --sl-font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+
+  --dig-display: 'Fraunces', Charter, Georgia, serif;
+  --dig-handwritten: 'Special Elite', 'Courier New', monospace;
+}
+
+/* Reading-grade body type. */
+html {
+  font-size: 18px;
+}
+@media (min-width: 700px)  { html { font-size: 19px; } }
+@media (min-width: 1100px) { html { font-size: 20px; } }
+@media (min-width: 1500px) { html { font-size: 21px; } }
+
+body {
+  font-family: var(--sl-font);
+  font-feature-settings: 'liga' 1, 'kern' 1, 'onum' 1;
+  font-variation-settings: 'opsz' 12;
+  line-height: 1.55;
+}
+
+.sl-markdown-content {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.sl-markdown-content p,
+.sl-markdown-content li {
+  font-size: 1.125rem;
+  font-variation-settings: 'opsz' 16;
+}
+
+.sl-markdown-content p { margin-block: 0.85em; }
+
+/* Headings — Fraunces, lighter weight so they whisper rather than shout. */
+h1, h2, h3, h4 {
+  font-family: var(--dig-display);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 48, 'SOFT' 70;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--sl-color-text);
+}
+
+h1 { font-size: clamp(2rem,   3.4vw, 2.7rem); line-height: 1.1; font-weight: 600; font-variation-settings: 'opsz' 96, 'SOFT' 80; }
+h2 { font-size: clamp(1.5rem, 2.2vw, 1.85rem); margin-top: 1.8em; margin-bottom: 0.5em; font-weight: 550; }
+h3 { font-size: clamp(1.2rem, 1.7vw, 1.4rem);  margin-top: 1.4em; margin-bottom: 0.4em; font-weight: 600; }
+h4 { font-size: 1.1rem;  margin-top: 1.1em;    margin-bottom: 0.3em; font-weight: 600; letter-spacing: 0; }
+
+/* tables — same family as body, slightly tighter for scan-ability */
+.sl-markdown-content table {
+  font-size: 1rem;
+  font-variation-settings: 'opsz' 14;
+}
+.sl-markdown-content th {
+  font-weight: 600;
+  background: var(--sl-color-gray-7);
+}
+.sl-markdown-content td, .sl-markdown-content th {
+  padding: 0.55rem 0.85rem;
+}
+
+/* site title styling lives in src/components/SiteTitle.astro (scoped). */
+
+/* Header spacing — give the install CTA + social icons a bit of room.
+ * position: static so the header sits in normal document flow, not fixed
+ * over the content. (Default is `position: fixed`, which forces a 64px
+ * `padding-top` on `.main-frame` to clear the header — that's the wasted
+ * vertical space between the header and the hero.) */
+header.header {
+  padding-inline-end: 1rem;
+  position: relative !important;
+}
+
+/* Now that the header is in flow, kill the offset that existed to clear it. */
+.main-frame {
+  padding-top: 0 !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * sidebar — wider so chapter labels don't truncate
+ * ------------------------------------------------------------------------ */
+
+:root {
+  --sl-sidebar-width: 21rem;
+  --sl-sidebar-pad-x: 1.25rem;
+}
+
+@media (min-width: 1400px) {
+  :root { --sl-sidebar-width: 23rem; }
+}
+
+.sidebar-content { font-size: 0.98rem; }
+.sidebar-content a { padding-block: 0.4rem; }
+.sidebar-content .group-label > span {
+  font-family: var(--dig-display);
+  font-variation-settings: 'opsz' 24, 'SOFT' 60;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * paper texture (light-mode only)
+ * ------------------------------------------------------------------------ */
+
+/* Quiet atmospheric warmth — no texture, just a whisper of gradient.
+ * Reading copy sits on a clean field. The "paper" feel comes from the
+ * palette, not from a noise overlay. */
+:root[data-theme='light'] body {
+  background-image:
+    radial-gradient(ellipse at 20% -10%, rgba(184, 146, 58, 0.05), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(138, 74, 42, 0.04), transparent 60%);
+  background-attachment: fixed;
+}
+
+:root[data-theme='dark'] body {
+  background-image:
+    radial-gradient(ellipse at 50% -10%, rgba(212, 168, 56, 0.04), transparent 65%);
+  background-attachment: fixed;
+}
+
+/* ---------------------------------------------------------------------------
+ * splash hero
+ * ------------------------------------------------------------------------ */
+
+/* Kill Starlight's splash hero grid (designed for hero-image layouts).
+ * Full-width single column, left-aligned editorial. */
+/* Kill Starlight's splash content padding — defaults are designed for huge
+ * hero images and waste 100+px of vertical space on a text-only hero. */
+.content-panel,
+:where(.content-panel) {
+  padding-block: 0.3rem !important;
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+}
+
+.content-panel + .content-panel {
+  padding-top: 0.4rem !important;
+  border-top: none !important;
+}
+
+/* Strip <main>'s default padding too (the splash template inherits it). */
+main {
+  padding: 0 !important;
+}
+
+/* Kill Starlight's splash hero grid (designed for hero-image layouts).
+ * Full-width single column, left-aligned editorial.
+ * `padding-block: 0` overrides the default `clamp(2.5rem, ..., 10rem)`. */
+.hero,
+:where(.hero) {
+  display: block !important;
+  grid-template-columns: none !important;
+  padding: 0 !important;
+  padding-block: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  min-height: 0 !important;
+  text-align: left !important;
+}
+
+/* The hero h1 is intentionally never used — the headline moved to the header.
+ * Hide unconditionally; it would otherwise reserve a line-height of empty space. */
+.hero h1,
+:where(.hero) h1 {
+  display: none !important;
+}
+
+/* Keep .stack/.copy as flex columns but kill the default 1.5–2rem gap so an
+ * empty h1 + tagline don't push the content down. */
+.hero .stack {
+  align-items: flex-start !important;
+  text-align: left !important;
+  max-width: none !important;
+  width: 100%;
+  gap: 0 !important;
+}
+
+.hero .copy {
+  align-items: flex-start !important;
+  text-align: left !important;
+  width: 100%;
+  gap: 0 !important;
+}
+
+.hero h1 {
+  font-family: var(--dig-display) !important;
+  font-weight: 600 !important;
+  font-variation-settings: 'opsz' 60, 'SOFT' 80 !important;
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem) !important;
+  letter-spacing: -0.015em;
+  line-height: 1.1 !important;
+  text-transform: none;
+  color: var(--sl-color-text);
+  margin: 0 0 0.3rem !important;
+  max-width: none;
+}
+
+.hero .tagline {
+  font-family: var(--sl-font) !important;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem) !important;
+  color: var(--sl-color-gray-2) !important;
+  margin: 0 0 0.4rem !important;
+  max-width: none;
+  line-height: 1.35;
+}
+
+.hero .actions {
+  display: flex !important;
+  flex-wrap: wrap;
+  margin: 0.4rem 0 0 !important;
+  gap: 0.55rem !important;
+  justify-content: flex-start !important;
+}
+
+.hero .actions a {
+  font-family: var(--dig-handwritten);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 0;
+  border: 2px solid var(--ink-dark);
+  padding: 0.45rem 0.95rem;
+  min-height: auto !important;
+  transition: all 0.15s ease;
+}
+
+:root[data-theme='dark'] .hero .actions a {
+  border-color: var(--aged-gold);
+}
+
+/* Lead paragraph immediately after the hero — carries the rich pitch.
+ * Larger than body, set in Source Serif at OPSZ 24 for some swagger.
+ * The <mark> highlight mimics a field-pen highlighter stroke. */
+.hero-lead {
+  font-family: var(--sl-font) !important;
+  font-variation-settings: 'opsz' 16 !important;
+  font-size: clamp(1rem, 1.15vw, 1.1rem) !important;
+  line-height: 1.45 !important;
+  color: var(--sl-color-text);
+  margin: 0.4rem 0 1.2rem !important;
+  max-width: none;
+}
+
+.hero-lead em {
+  font-style: italic;
+  color: var(--sl-color-gray-2);
+}
+
+mark, .hero-lead mark {
+  background: linear-gradient(
+    transparent 55%,
+    rgba(212, 168, 56, 0.45) 55%,
+    rgba(212, 168, 56, 0.45) 92%,
+    transparent 92%
+  );
+  color: inherit;
+  padding: 0 0.05em;
+  font-weight: 500;
+}
+
+:root[data-theme='dark'] mark,
+:root[data-theme='dark'] .hero-lead mark {
+  background: linear-gradient(
+    transparent 55%,
+    rgba(212, 168, 56, 0.30) 55%,
+    rgba(212, 168, 56, 0.30) 92%,
+    transparent 92%
+  );
+}
+
+:root[data-theme='dark'] .hero .actions a {
+  border-color: var(--aged-gold);
+}
+
+.hero .actions a:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink-dark);
+}
+
+:root[data-theme='dark'] .hero .actions a:hover {
+  box-shadow: 4px 4px 0 var(--aged-gold);
+}
+
+/* ---------------------------------------------------------------------------
+ * polaroid / taped photo treatment for memes
+ *
+ * Each polaroid sizes itself to its image (auto-width) so wide images don't
+ * get a tall empty frame. Capped at 320px wide on desktop.
+ * align-items: flex-start prevents flex stretching to a uniform height.
+ * ------------------------------------------------------------------------ */
+
+.polaroid-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;            /* don't stretch to tallest */
+  justify-content: center;
+  gap: 2rem;
+  margin: 1.5rem 0 2rem;
+  padding: 0.5rem 0;
+}
+
+.polaroid {
+  background: #fff;
+  padding: 14px 14px 14px;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(20, 17, 13, 0.20),
+    0 16px 40px rgba(20, 17, 13, 0.10);
+  position: relative;
+  width: auto;                        /* hug the image */
+  flex: 0 0 auto;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.polaroid:nth-child(1) { transform: rotate(-3.5deg); }
+.polaroid:nth-child(2) { transform: rotate(2deg) translateY(-8px); }
+.polaroid:nth-child(3) { transform: rotate(-1.5deg) translateY(4px); }
+
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.03);
+  z-index: 10;
+}
+
+.polaroid img {
+  display: block;
+  width: 220px;                       /* uniform render width */
+  height: 220px;                      /* uniform square frame, cropped */
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.92) contrast(1.04);
+}
+
+@media (min-width: 900px) {
+  .polaroid img { width: 240px; height: 240px; }
+}
+
+.polaroid figcaption {
+  font-family: var(--dig-handwritten);
+  font-size: 1.05rem;
+  color: var(--ink-dark);
+  text-align: center;
+  margin-top: 14px;
+  padding: 0 6px 8px;
+}
+
+/* tape strip */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 86px;
+  height: 24px;
+  background: rgba(255, 240, 180, 0.75);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+ * "field manual" numbered steps — compact 2-column grid
+ * ------------------------------------------------------------------------ */
+
+.field-steps {
+  list-style: none !important;
+  padding: 0 !important;
+  counter-reset: step;
+  margin: 1.5rem 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2rem;
+}
+
+@media (max-width: 720px) {
+  .field-steps { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+.field-steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.9rem 0 0.9rem 3.4rem;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  border-top: 1px solid var(--sl-color-hairline-light);
+}
+
+.field-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.95rem;
+  font-family: var(--dig-display);
+  font-variation-settings: 'opsz' 96, 'SOFT' 90;
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--stamp-red);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+:root[data-theme='dark'] .field-steps li::before { color: var(--aged-gold); }
+
+.field-steps strong {
+  font-family: var(--dig-display);
+  font-variation-settings: 'opsz' 24, 'SOFT' 70;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--sl-color-text);
+}
+
+/* The pull-quote that sits between the field manual and recent excavations,
+ * calling out the Q&A premise. */
+.field-pullquote {
+  margin: 2rem 0 2.5rem;
+  padding: 1.1rem 1.4rem;
+  border-left: 4px solid var(--stamp-red);
+  background: var(--sl-color-accent-low);
+  font-family: var(--sl-font);
+  font-variation-settings: 'opsz' 18;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--sl-color-text);
+}
+
+:root[data-theme='dark'] .field-pullquote {
+  border-left-color: var(--aged-gold);
+}
+
+.field-pullquote strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--stamp-red);
+}
+
+:root[data-theme='dark'] .field-pullquote strong {
+  color: var(--aged-gold);
+}
+
+/* "Questions worth asking out loud" — italic em leads, hairline dividers.
+ * Sits inside the same editorial language as the field steps. */
+.question-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1.2rem 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--sl-color-hairline-light);
+}
+
+.question-list li {
+  padding: 0.85rem 0 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--sl-color-text);
+  position: relative;
+}
+
+.question-list li::before {
+  content: '?';
+  position: absolute;
+  left: -0.1rem;
+  top: 0.85rem;
+  font-family: var(--dig-display);
+  font-variation-settings: 'opsz' 60, 'SOFT' 80;
+  font-weight: 700;
+  color: var(--stamp-red);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+:root[data-theme='dark'] .question-list li::before { color: var(--aged-gold); }
+
+.question-list em {
+  font-family: var(--sl-font);
+  font-style: italic;
+  font-weight: 500;
+  font-variation-settings: 'opsz' 18;
+  color: var(--sl-color-text);
+  margin-right: 0.25rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * book cards (recent excavations)
+ * ------------------------------------------------------------------------ */
+
+.book-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2.5rem 0;
+}
+
+.book-card {
+  display: block;
+  position: relative;
+  padding: 1.8rem 1.6rem 1.6rem;
+  background: var(--paper-edge);
+  border: 1px solid var(--sl-color-hairline);
+  border-left: 6px solid var(--stamp-red);
+  text-decoration: none !important;
+  color: var(--sl-color-text) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 3px 3px 0 var(--sl-color-hairline);
+}
+
+:root[data-theme='dark'] .book-card {
+  background: #2a241d;
+  border-left-color: var(--aged-gold);
+}
+
+.book-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--sl-color-hairline);
+}
+
+.book-card.book-card--featured {
+  padding: 2.2rem 2rem 1.8rem;
+  border-left-width: 10px;
+  background: var(--paper-deep);
+}
+
+:root[data-theme='dark'] .book-card.book-card--featured {
+  background: #322a20;
+}
+
+.book-card .vol {
+  font-family: var(--dig-handwritten);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sl-color-gray-2);
+  margin-bottom: 0.4rem;
+}
+
+.book-card .title {
+  font-family: var(--dig-display);
+  font-variation-settings: 'opsz' 60, 'SOFT' 80;
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.55rem;
+  color: var(--sl-color-text);
+}
+
+.book-card.book-card--featured .title { font-size: 1.95rem; }
+
+.book-card .blurb {
+  font-size: 1.02rem;
+  color: var(--sl-color-gray-1);
+  margin-bottom: 0.85rem;
+  line-height: 1.55;
+}
+
+.book-card .meta {
+  font-family: var(--dig-handwritten);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: var(--sl-color-gray-3);
+  text-transform: uppercase;
+}
+
+/* "coming soon" stamp */
+.stamp {
+  position: absolute;
+  top: 12px;
+  right: -8px;
+  padding: 5px 12px;
+  font-family: var(--dig-handwritten);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--stamp-red);
+  border: 2px solid var(--stamp-red);
+  background: rgba(157, 47, 35, 0.06);
+  text-transform: uppercase;
+  transform: rotate(8deg);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+:root[data-theme='dark'] .stamp {
+  color: #e07868;
+  border-color: #e07868;
+  background: rgba(224, 120, 104, 0.10);
+}
+
+/* ---------------------------------------------------------------------------
+ * editorial dividers + small touches
+ * ------------------------------------------------------------------------ */
+
+.dingbat {
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 1em;
+  color: var(--sl-color-gray-3);
+  margin: 2.5rem 0;
+}
+
+.dingbat::before { content: '✦ ✦ ✦'; }
+
+blockquote {
+  border-left: 4px solid var(--stamp-red) !important;
+  background: var(--sl-color-accent-low);
+  padding: 1.1rem 1.5rem;
+  font-family: var(--sl-font);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+:root[data-theme='dark'] blockquote {
+  border-left-color: var(--aged-gold) !important;
+}
+
+/* Code blocks — paper-card treatment.
+ * Tinted background that lives inside the parchment palette, no garish
+ * white rectangle. Hairline border so the block sits "in" the page. */
+.expressive-code {
+  margin: 1.4rem 0;
+}
+
+.expressive-code .frame,
+.expressive-code pre {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--sl-color-hairline) !important;
+  border-radius: 2px;
+}
+
+:root[data-theme='light'] {
+  --code-bg: #efe5cd;     /* tinted parchment, ≈4% deeper than --paper */
+}
+
+:root[data-theme='dark'] {
+  --code-bg: #14110e;     /* slightly deeper than --vellum-bg for separation */
+}
+
+/* terminal frame caption (the "▸ Terminal window" header) */
+.expressive-code .frame.is-terminal::before,
+.expressive-code .frame .header {
+  background: var(--code-bg) !important;
+  border-color: var(--sl-color-hairline) !important;
+}
+
+.expressive-code .copy button {
+  opacity: 0.5;
+}
+.expressive-code:hover .copy button { opacity: 1; }
+
+/* Inline code — same paper-card treatment, just smaller */
+:not(pre) > code {
+  font-size: 0.88em;
+  padding: 0.1em 0.4em;
+  border-radius: 2px;
+  background: var(--code-bg);
+  border: 1px solid var(--sl-color-hairline-light);
+  color: var(--sl-color-text);
+}
+
+/* ---------------------------------------------------------------------------
+ * mobile tweaks
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+  .polaroid-row { gap: 1.5rem; }
+  .polaroid img { width: 240px; height: 240px; }
+  .field-steps li { padding-left: 4rem; }
+  .field-steps li::before { font-size: 2.1rem; top: 1.7rem; }
+  .field-steps strong { font-size: 1.2rem; }
+  .hero { padding: 2rem 0 1rem !important; }
+}

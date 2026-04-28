@@ -1,0 +1,122 @@
+---
+title: Install
+description: Wire Code Archaeology into Claude Code, OpenCode, Cursor, or any agent that reads markdown.
+---
+
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
+
+## Claude Code (one-liner via marketplace)
+
+```
+/plugin marketplace add twitu/indiana-codes
+/plugin install dig@indiana-codes
+```
+
+That's it. Restart Claude Code and `/dig` shows up in any repo with git history.
+
+## Other agents (manual)
+
+Clone the repo once. The skill content is the same for every agent — only the install path differs.
+
+```bash
+git clone https://github.com/twitu/indiana-codes ~/.local/share/indiana-codes
+cd ~/.local/share/indiana-codes
+```
+
+Then pick your agent.
+
+<Tabs syncKey="agent">
+  <TabItem label="Claude Code (manual)">
+    Skip this if you used the marketplace install above. Manual symlink path:
+
+    ```bash
+    mkdir -p ~/.claude/skills ~/.claude/commands
+    ln -sf ~/.local/share/indiana-codes/dig         ~/.claude/skills/dig
+    ln -sf ~/.local/share/indiana-codes/commands/dig.md  ~/.claude/commands/dig.md
+    ```
+
+    Restart Claude Code. Type `/` and you should see `/dig`.
+  </TabItem>
+
+  <TabItem label="OpenCode">
+    ```bash
+    mkdir -p ~/.config/opencode/skills ~/.config/opencode/commands
+    ln -sf ~/.local/share/indiana-codes/dig         ~/.config/opencode/skills/dig
+    ln -sf ~/.local/share/indiana-codes/commands/dig.md  ~/.config/opencode/commands/dig.md
+    ```
+
+    Restart OpenCode. Type `/` and you should see `/dig`.
+  </TabItem>
+
+  <TabItem label="Cursor">
+    Cursor has no skills directory, so the command file points the agent at the cloned `SKILL.md` directly:
+
+    ```bash
+    mkdir -p ~/.cursor/commands
+    cat > ~/.cursor/commands/dig.md <<EOF
+    ---
+    description: Code archaeology — chapter-based history walkthrough
+    ---
+    Follow the skill instructions in $HOME/.local/share/indiana-codes/dig/SKILL.md to perform a codebase excavation pass on this repository.
+    EOF
+    ```
+
+    Project-scoped install (commits with the repo) is the same, but writes to `.cursor/commands/` instead of `~/.cursor/commands/`.
+  </TabItem>
+
+  <TabItem label="Other">
+    Codex, Aider, Continue.dev, Zed, raw chat assistants — drop the skill into your agent's long-lived instruction file.
+
+    See [Other agents](/indiana-codes/other-agents/) for per-agent recipes.
+  </TabItem>
+</Tabs>
+
+## Use it
+
+In your agent of choice, in any repo with git history:
+
+```
+/dig
+```
+
+The agent surveys the repo, proposes chapters, and asks which one you want to start with. Then:
+
+```
+Tell me about chapter 1.
+```
+
+```
+Why didn't they just use Postgres here?
+```
+
+```
+Was the v2 API ever finished, or is it abandonware?
+```
+
+```
+Skip ahead to the chapter about the auth migration.
+```
+
+It answers. You push back. By the end of each chapter, you know the chapter — and a markdown file knows it too.
+
+In a fresh chat, no need to re-run `/dig` — just point the agent at the existing `PROJECT_HISTORY.md`:
+
+```
+Based on PROJECT_HISTORY.md, walk me through chapter 3.
+```
+
+## Connect more sources
+
+Code Archaeology uses whatever it can find. More sources = better chapters.
+
+| Source | How |
+|---|---|
+| Git history | Built in. Always on. |
+| GitHub issues / PRs / discussions | Local [`gh`](https://cli.github.com/) CLI works out of the box. The official [GitHub MCP](https://github.com/github/github-mcp-server) is even better. |
+| GitHub releases | Same: `gh release` or the MCP. |
+| Jira / Linear / Confluence / Notion | If your team has the corresponding MCP configured in your agent, the skill picks it up automatically. |
+| Local docs | `docs/`, `adr/`, `rfc/`, `CHANGELOG.md` — read automatically. |
+
+<Aside type="tip" title="Plug into your stack">
+  The skill never asks "do you have Jira?" — it just tries the tools your agent has. Hooking up an MCP for your team's tracker is the single biggest quality boost.
+</Aside>

@@ -1,0 +1,125 @@
+---
+title: Code Archaeology
+description: An AI coding-agent skill that turns a repo's git history into a book — and won't let you skim it.
+template: splash
+hero:
+  title: ''
+  tagline: An AI coding-agent skill that turns a repo's git history into a book — and won't let you skim it.
+---
+
+import { Image } from 'astro:assets';
+import wingIt from '../../assets/wing-it.jpg';
+import hackRight from '../../assets/hack-right.jpg';
+import tameTheCode from '../../assets/tame-the-code.jpg';
+
+<div class="hero-lead">
+The agent does the digging — git history, GitHub PRs, design docs, release notes —
+and writes a draft chapter. <mark>You read it critically, challenge every assumption,
+and ask the questions whose answers aren't in any commit message.</mark> By the end
+of the chapter, you have the context of someone who's been on the team for years —
+and the confidence to contribute like one.
+</div>
+
+## You just joined the team
+
+You open the repo. **2,000 commits.** 200+ tickets. 14 contributors. Half don't work here anymore. The README was last updated in 2023. **What do you do?**
+
+<div class="polaroid-row">
+  <figure class="polaroid">
+    <Image src={wingIt} alt="Just wing it" loading="eager" />
+    <figcaption>option A: wing it</figcaption>
+  </figure>
+  <figure class="polaroid">
+    <Image src={hackRight} alt="Hack right?" />
+    <figcaption>option B: hack right?</figcaption>
+  </figure>
+  <figure class="polaroid">
+    <Image src={tameTheCode} alt="Tame the code" />
+    <figcaption>option C: be Indiana Jones</figcaption>
+  </figure>
+</div>
+
+You **dig**. You don't read 2,000 commits — you read a book the agent writes for you. Then you sit with it and ask the questions that turn information into understanding.
+
+## Read it like a book — chapter by chapter
+
+A book is structured. It has chapters. Each chapter has a thesis, evidence, and the
+parts the author chose to leave out. You read books *critically* — you mark margins,
+you push back on the framing, you check the citations.
+
+That's exactly the loop. Run `/dig` in Claude Code, OpenCode, or Cursor, in any repo
+with git history.
+
+<ol class="field-steps">
+  <li>
+    <strong>Survey the dig site</strong>
+    Commits, contributors, releases, RFCs, infra files, the suspicious silence around <code>legacy_v2/</code>. Where's the rich seam on this project?
+  </li>
+  <li>
+    <strong>Identify the chapters</strong>
+    Team transitions, migrations, the Great Refactor of 2022, the incident that shall not be named. Each one a chapter you'll read.
+  </li>
+  <li>
+    <strong>Deep-dive, one chapter at a time</strong>
+    What happened, who did it, why, and what got abandoned along the way. Enough context to ask good questions — not a wall of text.
+  </li>
+  <li>
+    <strong>Push back. Hard.</strong>
+    <em>Why not the simpler thing? What breaks if this is wrong? Was this eventually replaced? Whose call was this and what were they optimising for?</em> The chapter writes itself into <code>chapters/&lt;n&gt;.md</code> as you talk.
+  </li>
+</ol>
+
+<p class="field-pullquote">
+  <strong>Step 4 is the whole point.</strong> Steps 1–3 produce a draft — a thing to
+  react to. Real understanding lives in the conversation: the assumptions you challenge,
+  the alternatives you forced into the open, the answers that don't appear in any commit
+  message. <em>Reading is the prep. Arguing is the learning.</em>
+</p>
+
+### Questions worth asking out loud
+
+The agent will happily answer these. Skip them at your peril.
+
+<ul class="question-list">
+  <li><em>Why not the simpler thing?</em> — Forces the agent to defend the existing complexity. Half the time it can't, and you've found dead weight.</li>
+  <li><em>What breaks if this assumption is wrong?</em> — Builds operational intuition you cannot get from reading code.</li>
+  <li><em>Was this eventually replaced?</em> — If yes, the replacement is the verdict on the original trade-off.</li>
+  <li><em>Who pushed for this and what were they optimising for?</em> — Decisions are people. Names + motivations explain shape that code can't.</li>
+  <li><em>What got abandoned in this chapter?</em> — Casualties often explain the surviving design better than the surviving design does.</li>
+</ul>
+
+## Recent excavations
+
+Sample books — output of running `/dig` against well-known repos. Skim a chapter to feel what a finished excavation looks like before pointing it at your own.
+
+<div class="book-shelf">
+  <a class="book-card book-card--featured" href="/indiana-codes/books/vllm/">
+    <div class="vol">Volume I · 8 chapters</div>
+    <div class="title">vLLM</div>
+    <div class="blurb">From Woosuk Kwon's solo PagedAttention prototype (codename CacheFlow) to the dominant open-source LLM inference engine. Block managers, V1 rewrite, distributed serving, vLLM IR.</div>
+    <div class="meta">≈ 16k commits · 3 years · feb 2023 → apr 2026</div>
+  </a>
+  <a class="book-card" href="/indiana-codes/books/nautilus_trader/">
+    <div class="vol">Volume II · 15 chapters</div>
+    <div class="title">NautilusTrader</div>
+    <div class="blurb">Cython FX prototype → open-source quant platform → Rust beachhead → PyO3 migration → engine port. Identity crises, MessageBus, high-precision value types, blockchain adapters.</div>
+    <div class="meta">multi-year · python ↔ rust crossover</div>
+  </a>
+</div>
+
+[Suggest a repo →](https://github.com/twitu/indiana-codes/issues)
+
+## Begin the dig
+
+Claude Code (one-liner via marketplace):
+
+```
+/plugin marketplace add twitu/indiana-codes
+/plugin install dig@indiana-codes
+```
+
+For OpenCode, Cursor, and other agents see [the install page](/indiana-codes/install/). Then type `/dig` in any repo with git history.
+
+<small style="font-family: var(--dig-handwritten); display: block; margin-top: 2.5rem; color: var(--sl-color-gray-3); text-align: center;">
+  MIT licensed · Property of: anyone with `git` and an itch
+</small>

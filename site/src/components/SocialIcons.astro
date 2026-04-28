@@ -1,0 +1,58 @@
+---
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+
+import config from 'virtual:starlight/user-config';
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const installHref = `${base}/install/`;
+---
+
+<a class="header-install" href={installHref}>
+  <span class="label">Install</span>
+  <span class="arrow" aria-hidden="true">→</span>
+</a>
+
+<Default><slot /></Default>
+
+<style>
+  .header-install {
+    font-family: var(--dig-handwritten);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    border: 2px solid var(--sl-color-accent);
+    padding: 0.32rem 0.75rem 0.3rem;
+    margin-right: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    line-height: 1;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    border-radius: 0;
+  }
+
+  .header-install:hover,
+  .header-install:focus-visible {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-bg);
+    transform: translateY(-1px);
+  }
+
+  .header-install .arrow {
+    font-family: var(--dig-display);
+    font-size: 0.95em;
+    transition: transform 0.15s ease;
+  }
+
+  .header-install:hover .arrow {
+    transform: translateX(2px);
+  }
+
+  @media (max-width: 600px) {
+    .header-install .label { display: none; }
+    .header-install {
+      padding: 0.32rem 0.55rem;
+    }
+  }
+</style>

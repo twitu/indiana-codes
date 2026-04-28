@@ -1,0 +1,53 @@
+---
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title" translate="no">
+  <span class="brand">Code Archaeology</span>
+</a>
+<span class="header-tagline">{siteTitle}</span>
+
+<style>
+  .site-title {
+    text-decoration: none;
+    color: var(--sl-color-text);
+    line-height: 1;
+    padding: 0.15rem 0;
+    z-index: 2;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .brand {
+    font-family: var(--dig-handwritten);
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sl-color-accent);
+  }
+
+  /* Pinned to the centre of the header bar. `header.header { position: relative; }`
+   * is set in dig.css so this anchors against the full header width. */
+  .header-tagline {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--dig-display);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 60, 'SOFT' 60;
+    font-size: clamp(0.85rem, 1.05vw, 1rem);
+    color: var(--sl-color-text);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+    max-width: 60vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 1200px) {
+    .header-tagline { display: none; }
+  }
+</style>
