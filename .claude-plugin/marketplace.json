@@ -1,0 +1,15 @@
+{
+  "name": "indiana-codes",
+  "owner": {
+    "name": "twitu",
+    "url": "https://github.com/twitu"
+  },
+  "plugins": [
+    {
+      "name": "dig",
+      "source": ".",
+      "description": "Read a codebase like a book — chapter-by-chapter git/PR/issue archaeology with interactive Q&A. Adds the /dig slash command.",
+      "homepage": "https://twitu.github.io/indiana-codes/"
+    }
+  ]
+}

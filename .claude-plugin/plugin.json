@@ -1,0 +1,20 @@
+{
+  "name": "dig",
+  "description": "Read a codebase like a book — chapter-by-chapter git/PR/issue archaeology with interactive Q&A. Adds the /dig slash command.",
+  "version": "1.0.0",
+  "author": {
+    "name": "twitu",
+    "url": "https://github.com/twitu"
+  },
+  "homepage": "https://twitu.github.io/indiana-codes/",
+  "repository": "https://github.com/twitu/indiana-codes",
+  "license": "MIT",
+  "keywords": [
+    "git",
+    "archaeology",
+    "onboarding",
+    "codebase",
+    "documentation",
+    "history"
+  ]
+}
