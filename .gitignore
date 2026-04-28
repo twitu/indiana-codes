@@ -22,3 +22,6 @@ pnpm-debug.log*
 .vscode/
 .idea/
 *.swp
+
+# local-only agent guidance
+CLAUDE.md
